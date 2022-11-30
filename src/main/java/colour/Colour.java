@@ -21,6 +21,9 @@ public class Colour {
     }
 
     public Colour(int rgb) {
+        if (rgb > 16777215 || rgb < 0) {
+            throw new IllegalArgumentException("Color parameter outside of range");
+        }
         red = 0xff & (rgb >> 16);
         green = 0xff & (rgb >> 8);
         blue = 0xff & rgb;
