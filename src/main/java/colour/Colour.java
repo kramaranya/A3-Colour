@@ -20,6 +20,12 @@ public class Colour {
         blue = (int) (b * 255);
     }
 
+    public Colour(int rgb) {
+        red = 0xff & (rgb >> 16);
+        green = 0xff & (rgb >> 8);
+        blue = 0xff & rgb;
+    }
+
     public int getRed() {
         return red;
     }
