@@ -7,20 +7,10 @@ public class ColourTest {
     @Test
     void Colour_ThreeValidComponents_CreateColourWithCorrectValues() {
         Colour colour = new Colour(0.0F, 0.5F, 1.0F);
-        Colour colour2 = new Colour(0.0F, 0.0F, 0.0F);
-        Colour colour3 = new Colour(1.0F, 1.0F, 1.0F);
 
         Assertions.assertEquals(0, colour.getRed());
         Assertions.assertEquals(255 / 2, colour.getGreen());
         Assertions.assertEquals(255, colour.getBlue());
-
-        Assertions.assertEquals(0, colour2.getRed());
-        Assertions.assertEquals(0, colour2.getGreen());
-        Assertions.assertEquals(0, colour2.getBlue());
-
-        Assertions.assertEquals(255, colour3.getRed());
-        Assertions.assertEquals(255, colour3.getGreen());
-        Assertions.assertEquals(255, colour3.getBlue());
     }
 
     @Test
@@ -69,4 +59,15 @@ public class ColourTest {
         Assertions.assertEquals(255, colour2.getGreen());
         Assertions.assertEquals(255, colour2.getBlue());
     }
+
+    @Test
+    void Colour_ComponentIsGreaterThanExpected_ThrowIllegalArgumentException() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new Colour(16777216));
+    }
+
+    @Test
+    void Colour_ComponentIsSmallerThanExpected_ThrowIllegalArgumentException() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new Colour(-50));
+    }
+
 }
