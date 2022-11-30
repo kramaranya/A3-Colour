@@ -20,4 +20,12 @@ public class ColourTest {
     void Colour_OneComponentIsSmallerThanExpected_ThrowIllegalArgumentException() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> new Colour(0.0F, 0.5F, -1.0F));
     }
+    @Test
+    void Colour_OneValidRGBComponent_CreateColourWithCorrectValues(){
+        Colour colour = new Colour(16711935);
+
+        Assertions.assertEquals(255, colour.getRed());
+        Assertions.assertEquals(0, colour.getGreen());
+        Assertions.assertEquals(255, colour.getBlue());
+    }
 }
