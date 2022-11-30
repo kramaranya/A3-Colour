@@ -12,4 +12,12 @@ public class ColourTest {
         Assertions.assertEquals(255 / 2, colour.getGreen());
         Assertions.assertEquals(255, colour.getBlue());
     }
+    @Test
+    void Colour_OneComponentIsGreaterThanExpected_ThrowIllegalArgumentException() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new Colour(0.0F, 0.5F, 15.0F));
+    }
+    @Test
+    void Colour_OneComponentIsSmallerThanExpected_ThrowIllegalArgumentException() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new Colour(0.0F, 0.5F, -1.0F));
+    }
 }
