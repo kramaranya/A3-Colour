@@ -11,8 +11,10 @@ public class Colour {
     private final int green;
     private final int blue;
 
-    public Colour(float r, float g, float b) {
-
+    public Colour(float r, float g, float b) throws IllegalArgumentException {
+        if (r < 0.0 || r > 1.0 || g < 0.0 || g > 1.0 || b < 0.0 || b > 1.0) {
+            throw new IllegalArgumentException("Colour parameter outside of range");
+        }
         red = (int) (r * 255);
         green = (int) (g * 255);
         blue = (int) (b * 255);
