@@ -70,4 +70,20 @@ public class ColourTest {
         Assertions.assertThrows(IllegalArgumentException.class, () -> new Colour(-50));
     }
 
+    @Test
+    void Equals_ColoursHaveTheSameComponentValues_ReturnTrue(){
+        Colour colour = new Colour(1.0F, 0.0F, 1.0F);
+        Colour colour2 = new Colour(16711935);
+
+        Assertions.assertTrue(colour.equals(colour2));
+    }
+
+    @Test
+    void Equals_ColoursHaveNotTheSameComponentValues_ReturnFalse(){
+        Colour colour = new Colour(1.0F, 1.0F, 1.0F);
+        Colour colour2 = new Colour(0);
+
+        Assertions.assertFalse(colour.equals(colour2));
+    }
+
 }
