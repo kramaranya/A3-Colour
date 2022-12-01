@@ -1,5 +1,7 @@
 package colour;
 
+import java.util.Objects;
+
 /**
  * The {@code Colour} class is used to represent RGB colours.
  *
@@ -20,7 +22,7 @@ public class Colour {
         blue = (int) (b * 255);
     }
 
-    public Colour(int rgb) {
+    public Colour(int rgb) throws IllegalArgumentException {
         if (rgb > 16777215 || rgb < 0) {
             throw new IllegalArgumentException("Color parameter outside of range");
         }
@@ -39,5 +41,18 @@ public class Colour {
 
     public int getBlue() {
         return blue;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Colour colour = (Colour) o;
+        return red == colour.red && green == colour.green && blue == colour.blue;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(red, green, blue);
     }
 }
