@@ -8,23 +8,33 @@ public class ColourTest {
     void Colour_ThreeValidComponents_CreateColourWithCorrectValues() {
         Colour colour = new Colour(0.0F, 0.5F, 1.0F);
 
-        Assertions.assertEquals(0, colour.getRed());
-        Assertions.assertEquals(255 / 2, colour.getGreen());
-        Assertions.assertEquals(255, colour.getBlue());
+        Assertions.assertAll(
+                () -> Assertions.assertEquals(0, colour.getRed()),
+                () -> Assertions.assertEquals(255 / 2, colour.getGreen()),
+                () -> Assertions.assertEquals(255, colour.getBlue())
+        );
     }
 
     @Test
     void Colour_ThreeValidComponents_CreateColoursWithCorrectValues() {
         Colour colour = new Colour(0.0F, 0.0F, 0.0F);
-        Colour colour2 = new Colour(1.0F, 1.0F, 1.0F);
 
-        Assertions.assertEquals(0, colour.getRed());
-        Assertions.assertEquals(0, colour.getGreen());
-        Assertions.assertEquals(0, colour.getBlue());
+        Assertions.assertAll(
+                () -> Assertions.assertEquals(0, colour.getRed()),
+                () -> Assertions.assertEquals(0, colour.getGreen()),
+                () -> Assertions.assertEquals(0, colour.getBlue())
+        );
+    }
 
-        Assertions.assertEquals(255, colour2.getRed());
-        Assertions.assertEquals(255, colour2.getGreen());
-        Assertions.assertEquals(255, colour2.getBlue());
+    @Test
+    void Colour_AnotherThreeValidComponents_CreateColoursWithCorrectValues() {
+        Colour colour = new Colour(1.0F, 1.0F, 1.0F);
+
+        Assertions.assertAll(
+                () -> Assertions.assertEquals(255, colour.getRed()),
+                () -> Assertions.assertEquals(255, colour.getGreen()),
+                () -> Assertions.assertEquals(255, colour.getBlue())
+        );
     }
 
     @Test
@@ -41,23 +51,33 @@ public class ColourTest {
     void Colour_OneValidRGBComponent_CreateColourWithCorrectValues() {
         Colour colour = new Colour(16711935);
 
-        Assertions.assertEquals(255, colour.getRed());
-        Assertions.assertEquals(0, colour.getGreen());
-        Assertions.assertEquals(255, colour.getBlue());
+        Assertions.assertAll(
+                () -> Assertions.assertEquals(255, colour.getRed()),
+                () -> Assertions.assertEquals(0, colour.getGreen()),
+                () -> Assertions.assertEquals(255, colour.getBlue())
+        );
     }
 
     @Test
     void Colour_ValidRGBComponents_CreateColoursWithCorrectValues() {
         Colour colour = new Colour(0);
-        Colour colour2 = new Colour(16777215);
 
-        Assertions.assertEquals(0, colour.getRed());
-        Assertions.assertEquals(0, colour.getGreen());
-        Assertions.assertEquals(0, colour.getBlue());
+        Assertions.assertAll(
+                () -> Assertions.assertEquals(0, colour.getRed()),
+                () -> Assertions.assertEquals(0, colour.getGreen()),
+                () -> Assertions.assertEquals(0, colour.getBlue())
+        );
+    }
 
-        Assertions.assertEquals(255, colour2.getRed());
-        Assertions.assertEquals(255, colour2.getGreen());
-        Assertions.assertEquals(255, colour2.getBlue());
+    @Test
+    void Colour_AnotherValidRGBComponents_CreateColoursWithCorrectValues() {
+        Colour colour = new Colour(16777215);
+
+        Assertions.assertAll(
+                () -> Assertions.assertEquals(255, colour.getRed()),
+                () -> Assertions.assertEquals(255, colour.getGreen()),
+                () -> Assertions.assertEquals(255, colour.getBlue())
+        );
     }
 
     @Test
