@@ -106,4 +106,20 @@ public class ColourTest {
         Assertions.assertFalse(colour.equals(colour2));
     }
 
+    @Test
+    void HashCode_ColoursHaveTheSameComponentValues_ReturnTrue(){
+        Colour colour = new Colour(1.0F, 0.0F, 1.0F);
+        Colour colour2 = new Colour(16711935);
+
+        Assertions.assertEquals(colour.hashCode(), colour2.hashCode());
+    }
+
+    @Test
+    void HashCode_ColoursHaveNotTheSameComponentValues_ReturnFalse(){
+        Colour colour = new Colour(1.0F, 0.0F, 1.0F);
+        Colour colour2 = new Colour(0);
+
+        Assertions.assertNotEquals(colour.hashCode(), colour2.hashCode());
+    }
+
 }
