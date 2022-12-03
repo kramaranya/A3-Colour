@@ -27,32 +27,34 @@ public class Colour {
 
     public Colour(int rgb) throws IllegalArgumentException {
         if (rgb > MAX_INT_VAL || rgb < MIN_VAL) {
-            throw new IllegalArgumentException("RGB parameter out of range");
+            throw new IllegalArgumentException(
+                    "RGB parameter out of range [" + (int) MIN_VAL + ", " + MAX_INT_VAL + "]: RGB = " + rgb);
         }
-        
+
         red = 0xff & (rgb >> 16);
         green = 0xff & (rgb >> 8);
         blue = 0xff & rgb;
     }
 
-    private static void checkValueRange(float r, float g, float b) throws IllegalArgumentException {
+    private void checkValueRange(float r, float g, float b) throws IllegalArgumentException {
         boolean isOutOfRange = false;
-        StringBuilder outOfRangeComponent = new StringBuilder();
+        StringBuilder outOfRangeParameter = new StringBuilder();
 
         if (r < MIN_VAL || r > MAX_FLOAT_VAl) {
             isOutOfRange = true;
-            outOfRangeComponent.append(" red");
+            outOfRangeParameter.append(" red = ").append(r);
         }
         if (g < MIN_VAL || g > MAX_FLOAT_VAl) {
             isOutOfRange = true;
-            outOfRangeComponent.append(" green");
+            outOfRangeParameter.append(" green = ").append(g);
         }
         if (b < MIN_VAL || b > MAX_FLOAT_VAl) {
             isOutOfRange = true;
-            outOfRangeComponent.append(" blue");
+            outOfRangeParameter.append(" blue = ").append(b);
         }
         if (isOutOfRange) {
-            throw new IllegalArgumentException("Color parameter out of range:" + outOfRangeComponent);
+            throw new IllegalArgumentException(
+                    "Color parameter(s) out of range [" + MIN_VAL + ", " + MAX_FLOAT_VAl + "]:" + outOfRangeParameter);
         }
     }
 
