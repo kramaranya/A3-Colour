@@ -1,6 +1,7 @@
 import colour.Colour;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 public class ColourTest {
@@ -39,12 +40,14 @@ public class ColourTest {
 
     @Test
     void Colour_OneComponentIsGreaterThanExpected_ThrowIllegalArgumentException() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> new Colour(0.0F, 0.5F, 15.0F));
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new Colour(1.5F, 0.5F, 15.0F));
+        Assertions.assertEquals("Color parameter(s) out of range [0.0, 1.0]: red = 1.5 blue = 15.0", exception.getMessage());
     }
 
     @Test
     void Colour_OneComponentIsSmallerThanExpected_ThrowIllegalArgumentException() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> new Colour(0.0F, 0.5F, -1.0F));
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new Colour(0.0F, 0.5F, -1.0F));
+        Assertions.assertEquals("Color parameter(s) out of range [0.0, 1.0]: blue = -1.0", exception.getMessage());
     }
 
     @Test
@@ -60,12 +63,12 @@ public class ColourTest {
 
     @Test
     void Colour_ValidRGBComponents_CreateColoursWithCorrectValues() {
-        Colour colour = new Colour(0);
+        Colour colour = new Colour(11184810);
 
         Assertions.assertAll(
-                () -> Assertions.assertEquals(0, colour.getRed()),
-                () -> Assertions.assertEquals(0, colour.getGreen()),
-                () -> Assertions.assertEquals(0, colour.getBlue())
+                () -> Assertions.assertEquals(170, colour.getRed()),
+                () -> Assertions.assertEquals(170, colour.getGreen()),
+                () -> Assertions.assertEquals(170, colour.getBlue())
         );
     }
 
@@ -82,12 +85,14 @@ public class ColourTest {
 
     @Test
     void Colour_ComponentIsGreaterThanExpected_ThrowIllegalArgumentException() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> new Colour(16777216));
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new Colour(16777216));
+        Assertions.assertEquals("RGB parameter out of range [0, 16777215]: RGB = 16777216", exception.getMessage());
     }
 
     @Test
     void Colour_ComponentIsSmallerThanExpected_ThrowIllegalArgumentException() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> new Colour(-50));
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new Colour(-50));
+        Assertions.assertEquals("RGB parameter out of range [0, 16777215]: RGB = -50", exception.getMessage());
     }
 
     @Test
