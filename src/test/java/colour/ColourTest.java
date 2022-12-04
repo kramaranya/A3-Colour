@@ -2,6 +2,7 @@ package colour;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
@@ -22,7 +23,7 @@ public class ColourTest {
     }
 
     @Test
-    void Colour_ThreeValidComponents_CreateColoursWithCorrectValues() {
+    void Colour_ThreeMinimalComponents_CreateBlackColour() {
         int expectedRed = 0;
         int expectedGreen = 0;
         int expectedBlue = 0;
@@ -37,7 +38,7 @@ public class ColourTest {
     }
 
     @Test
-    void Colour_AnotherThreeValidComponents_CreateColoursWithCorrectValues() {
+    void Colour_ThreeMaximalComponents_CreateWhiteColour() {
         int expectedRed = 255;
         int expectedGreen = 255;
         int expectedBlue = 255;
@@ -52,7 +53,7 @@ public class ColourTest {
     }
 
     @Test
-    void Colour_OneComponentIsGreaterThanExpected_ThrowIllegalArgumentException() {
+    void Colour_TwoComponentsAreGreaterThanExpected_ThrowIllegalArgumentException() {
         String expectedMessage = "Color parameter(s) out of range [0.0, 1.0]: red = 1.5 blue = 15.0";
 
         Throwable exception = assertThrows(IllegalArgumentException.class,
@@ -72,22 +73,7 @@ public class ColourTest {
     }
 
     @Test
-    void Colour_OneValidRGBComponent_CreateColourWithCorrectValues() {
-        int expectedRed = 255;
-        int expectedGreen = 0;
-        int expectedBlue = 255;
-
-        Colour colour = new Colour(16711935);
-
-        Assertions.assertAll(
-                () -> Assertions.assertEquals(expectedRed, colour.getRed()),
-                () -> Assertions.assertEquals(expectedGreen, colour.getGreen()),
-                () -> Assertions.assertEquals(expectedBlue, colour.getBlue())
-        );
-    }
-
-    @Test
-    void Colour_ValidRGBComponents_CreateColoursWithCorrectValues() {
+    void Colour_ValidRGBComponent_CreateColourWithCorrectValues() {
         int expectedRed = 170;
         int expectedGreen = 170;
         int expectedBlue = 170;
@@ -102,7 +88,22 @@ public class ColourTest {
     }
 
     @Test
-    void Colour_AnotherValidRGBComponents_CreateColoursWithCorrectValues() {
+    void Colour_MinimalRGBComponent_CreateBlackColour() {
+        int expectedRed = 0;
+        int expectedGreen = 0;
+        int expectedBlue = 0;
+
+        Colour colour = new Colour(0);
+
+        Assertions.assertAll(
+                () -> Assertions.assertEquals(expectedRed, colour.getRed()),
+                () -> Assertions.assertEquals(expectedGreen, colour.getGreen()),
+                () -> Assertions.assertEquals(expectedBlue, colour.getBlue())
+        );
+    }
+
+    @Test
+    void Colour_MaximalRGBComponent_CreateWhiteColour() {
         int expectedRed = 255;
         int expectedGreen = 255;
         int expectedBlue = 255;
@@ -117,7 +118,7 @@ public class ColourTest {
     }
 
     @Test
-    void Colour_ComponentIsGreaterThanExpected_ThrowIllegalArgumentException() {
+    void Colour_RGBComponentIsGreaterThanExpected_ThrowIllegalArgumentException() {
         String expectedMessage = "RGB parameter out of range [0, 16777215]: RGB = 16777216";
 
         Throwable exception = assertThrows(IllegalArgumentException.class,
@@ -127,7 +128,7 @@ public class ColourTest {
     }
 
     @Test
-    void Colour_ComponentIsSmallerThanExpected_ThrowIllegalArgumentException() {
+    void Colour_RGBComponentIsSmallerThanExpected_ThrowIllegalArgumentException() {
         String expectedMessage = "RGB parameter out of range [0, 16777215]: RGB = -50";
 
         Throwable exception = assertThrows(IllegalArgumentException.class,
@@ -141,7 +142,10 @@ public class ColourTest {
         Colour colour = new Colour(1.0F, 0.0F, 1.0F);
         Colour colour2 = new Colour(16711935);
 
-        Assertions.assertTrue(colour.equals(colour2));
+        Assertions.assertAll(
+                () -> Assertions.assertTrue(colour.equals(colour2)),
+                () -> Assertions.assertTrue(colour2.equals(colour))
+        );
     }
 
     @Test
@@ -149,7 +153,10 @@ public class ColourTest {
         Colour colour = new Colour(1.0F, 1.0F, 1.0F);
         Colour colour2 = new Colour(0);
 
-        Assertions.assertFalse(colour.equals(colour2));
+        Assertions.assertAll(
+                () -> Assertions.assertFalse(colour.equals(colour2)),
+                () -> Assertions.assertFalse(colour2.equals(colour))
+        );
     }
 
     @Test
