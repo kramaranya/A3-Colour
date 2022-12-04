@@ -16,41 +16,42 @@ public class Colour {
     static final int MAX_INT_VAL = 16777215;
     static final float MAX_FLOAT_VAl = 1.0F;
     static final float MIN_VAL = 0.0F;
+    static final int HEX_255 = 0xff;
 
-    public Colour(float r, float g, float b) throws IllegalArgumentException {
-        checkValueRange(r, g, b);
+    public Colour(float red, float green, float blue) throws IllegalArgumentException {
+        checkValueRange(red, green, blue);
 
-        red = (int) (r * 255);
-        green = (int) (g * 255);
-        blue = (int) (b * 255);
+        this.red = (int) (red * 255);
+        this.green = (int) (green * 255);
+        this.blue = (int) (blue * 255);
     }
 
-    public Colour(int rgb) throws IllegalArgumentException {
-        if (rgb > MAX_INT_VAL || rgb < MIN_VAL) {
+    public Colour(int rgbValue) throws IllegalArgumentException {
+        if (rgbValue > MAX_INT_VAL || rgbValue < MIN_VAL) {
             throw new IllegalArgumentException(
-                    "RGB parameter out of range [" + (int) MIN_VAL + ", " + MAX_INT_VAL + "]: RGB = " + rgb);
+                    "RGB value out of range [" + (int) MIN_VAL + ", " + MAX_INT_VAL + "]: RGB = " + rgbValue);
         }
 
-        red = 0xff & (rgb >> 16);
-        green = 0xff & (rgb >> 8);
-        blue = 0xff & rgb;
+        red = HEX_255 & (rgbValue >> 16);   //extracting the red component by using bitwise-and and shifting right 16 places
+        green = HEX_255 & (rgbValue >> 8);  //extracting the green component by using bitwise-and and shifting right 8 places
+        blue = HEX_255 & rgbValue;          //extracting the blue component by using bitwise-and
     }
 
-    private void checkValueRange(float r, float g, float b) throws IllegalArgumentException {
+    private void checkValueRange(float red, float green, float blue) throws IllegalArgumentException {
         boolean isOutOfRange = false;
         StringBuilder outOfRangeParameter = new StringBuilder();
 
-        if (r < MIN_VAL || r > MAX_FLOAT_VAl) {
+        if (red < MIN_VAL || red > MAX_FLOAT_VAl) {
             isOutOfRange = true;
-            outOfRangeParameter.append(" red = ").append(r);
+            outOfRangeParameter.append(" red = ").append(red);
         }
-        if (g < MIN_VAL || g > MAX_FLOAT_VAl) {
+        if (green < MIN_VAL || green > MAX_FLOAT_VAl) {
             isOutOfRange = true;
-            outOfRangeParameter.append(" green = ").append(g);
+            outOfRangeParameter.append(" green = ").append(green);
         }
-        if (b < MIN_VAL || b > MAX_FLOAT_VAl) {
+        if (blue < MIN_VAL || blue > MAX_FLOAT_VAl) {
             isOutOfRange = true;
-            outOfRangeParameter.append(" blue = ").append(b);
+            outOfRangeParameter.append(" blue = ").append(blue);
         }
         if (isOutOfRange) {
             throw new IllegalArgumentException(
@@ -74,12 +75,19 @@ public class Colour {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         Colour colour = (Colour) o;
-        return red == colour.red && green == colour.green && blue == colour.blue;
+
+        if (red != colour.red) return false;
+        if (green != colour.green) return false;
+        return blue == colour.blue;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(red, green, blue);
+        int result = red;
+        result = 31 * result + green;
+        result = 31 * result + blue;
+        return result;
     }
 }

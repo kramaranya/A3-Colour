@@ -64,10 +64,10 @@ public class ColourTest {
 
     @Test
     void Colour_OneComponentIsSmallerThanExpected_ThrowIllegalArgumentException() {
-        String expectedMessage = "Color parameter(s) out of range [0.0, 1.0]: blue = -1.0";
+        String expectedMessage = "Color parameter(s) out of range [0.0, 1.0]: green = -0.5";
 
         Throwable exception = assertThrows(IllegalArgumentException.class,
-                () -> new Colour(0.0F, 0.5F, -1.0F));
+                () -> new Colour(0.0F, -0.5F, 1.0F));
 
         Assertions.assertEquals(expectedMessage, exception.getMessage());
     }
@@ -119,7 +119,7 @@ public class ColourTest {
 
     @Test
     void Colour_RGBComponentIsGreaterThanExpected_ThrowIllegalArgumentException() {
-        String expectedMessage = "RGB parameter out of range [0, 16777215]: RGB = 16777216";
+        String expectedMessage = "RGB value out of range [0, 16777215]: RGB = 16777216";
 
         Throwable exception = assertThrows(IllegalArgumentException.class,
                 () -> new Colour(16777216));
@@ -129,7 +129,7 @@ public class ColourTest {
 
     @Test
     void Colour_RGBComponentIsSmallerThanExpected_ThrowIllegalArgumentException() {
-        String expectedMessage = "RGB parameter out of range [0, 16777215]: RGB = -50";
+        String expectedMessage = "RGB value out of range [0, 16777215]: RGB = -50";
 
         Throwable exception = assertThrows(IllegalArgumentException.class,
                 () -> new Colour(-50));
